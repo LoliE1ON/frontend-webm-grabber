@@ -1,9 +1,9 @@
 <template>
     <div>
-        <Bar v-bind:draw="drawBar"/>
+        <Bar/>
 
         <v-app-bar app color="red" dark>
-            <v-app-bar-nav-icon @click="drawBar = !drawBar" />
+            <v-app-bar-nav-icon @click="togleBar" />
             <v-toolbar-title>Application</v-toolbar-title>
         </v-app-bar>
     </div>
@@ -12,9 +12,9 @@
 <script>
     import Bar from "./Bar"
     export default {
-        data: function () {
-            return {
-                drawBar: true,
+        methods: {
+            togleBar: function () {
+                this.$root.drawBar = !this.$root.drawBar;
             }
         },
         components: {

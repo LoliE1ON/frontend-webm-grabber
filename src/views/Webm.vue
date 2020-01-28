@@ -1,21 +1,16 @@
 <template>
 
-    <v-container class="grey lighten-5">
+    <v-container class="lighten-5">
 
-        <h3>{{ $route.params.id }} / {{ $route.params.boardId }}</h3>
+        <Breadcrumbs :items="breadcrumbs"/>
+
+        <v-overlay :value="loader">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
 
         <v-row no-gutters>
-            <v-col
-                    cols="12"
-                    sm="4"
-                    v-for="(webm, iWebm) in getfiles" :key="iWebm">
-                <v-card
-                        class="pa-2"
-                        outlined
-                        tile
-                >
-                    One of three columns
-                </v-card>
+            <v-col cols="12" sm="3" v-for="(webm, iWebm) in getfiles" :key="iWebm">
+                <WebmCard :webm="webm"/>
             </v-col>
         </v-row>
     </v-container>
@@ -23,28 +18,49 @@
 
 <script>
     import FilesStore from "../store/files.store";
+    import Breadcrumbs from "../components/common/Breadcrumbs";
+    import WebmCard from "../components/common/webm/WebmCard";
 
     export default {
         data () {
             return {
                 files: {},
+                loader: true,
             }
         },
         computed: {
+            breadcrumbs: function () {
+                return [
+                    {
+                        text: this.$route.params.id,
+                        disabled: false,
+                        href: '/',
+                    },
+                    {
+                        text: this.$route.params.boardId,
+                        disabled: true,
+                        href: '',
+                    },
+                ]
+            },
             getfiles: function () {
-                const newFiles = [];
-                this.files[this.$route.params.id][this.$route.params.boardId].forEach((value) => {
-                    value.Files.forEach((webm) => {
-                        newFiles.push(webm);
-                    })
-                });
+                let newFiles = [];
+                if(!this.files[this.$route.params.id]) return newFiles;
+
+                newFiles = this.files[this.$route.params.id].filter(b=> b.name == this.$route.params.boardId).map(b => b.Threads).flat().map(t => t.files).flat();
+                console.log(newFiles)
+                this.loader = false;
                 return newFiles;
             }
         },
         mounted() {
             FilesStore.dispatch('getFiles').then(() => {
-                this.files = FilesStore.getters.getAll.Vendors;
+                this.files = FilesStore.getters.getAll.vendors;
             })
-        }
+        },
+        components: {
+            WebmCard,
+            Breadcrumbs
+        },
     }
 </script>

@@ -11,5 +11,9 @@ new Vue({
   router,
   store,
   vuetify,
+  data: {
+    // Toggle bar
+    drawBar: true,
+  },
   render: h => h(App)
 }).$mount('#app')

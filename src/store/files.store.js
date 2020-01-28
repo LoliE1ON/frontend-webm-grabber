@@ -16,7 +16,7 @@ export default new Vuex.Store({
     },
     actions: {
         async getFiles ({ commit }) {
-            if (!this.state.data.Vendors) {
+            if (!this.state.data.vendors) {
                 const res = await axios.get('http://localhost:3500/files/getAll');
                 commit('save', res.data);
             }
