@@ -9,13 +9,11 @@
         props: {
             items: {
                 type: Array,
-                default: function () {
-                    return [{
-                        text: 'Dashboard',
-                        disabled: false,
-                        href: 'breadcrumbs_dashboard',
-                    }]
-                }
+                default: () =>  ([{
+                    text: 'Home',
+                    disabled: false,
+                    href: '/',
+                }])
             },
         },
     }

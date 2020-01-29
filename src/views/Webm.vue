@@ -9,7 +9,7 @@
         </v-overlay>
 
         <v-row no-gutters>
-            <v-col cols="12" sm="3" v-for="(webm, iWebm) in getfiles" :key="iWebm">
+            <v-col cols="12" sm="3" v-for="(webm, iWebm) in getFiles" :key="iWebm">
                 <WebmCard :webm="webm"/>
             </v-col>
         </v-row>
@@ -22,28 +22,18 @@
     import WebmCard from "../components/common/webm/WebmCard";
 
     export default {
-        data () {
-            return {
-                files: {},
-                loader: true,
-            }
-        },
+        data: () => ({
+            files: {},
+            loader: true,
+        }),
         computed: {
             breadcrumbs: function () {
                 return [
-                    {
-                        text: this.$route.params.id,
-                        disabled: false,
-                        href: '/',
-                    },
-                    {
-                        text: this.$route.params.boardId,
-                        disabled: true,
-                        href: '',
-                    },
+                    { text: this.$route.params.id, disabled: false, href: '/' },
+                    { text: this.$route.params.boardId, disabled: true, href: '' }
                 ]
             },
-            getfiles: function () {
+            getFiles: function () {
                 let newFiles = [];
                 if(!this.files[this.$route.params.id]) return newFiles;
 

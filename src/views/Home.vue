@@ -2,11 +2,7 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
 
-      <ul>
-        <li v-for="file in files" v-bind:key="file">
-          {{ file }}
-        </li>
-      </ul>
+      Home
 
     </v-row>
   </v-container>
@@ -15,10 +11,8 @@
 <script>
   export default {
     name: 'home',
-    data: () => {
-      return {
-        files: {}
-      }
-    },
+    data: () => ({
+      ///
+    }),
   }
 </script>

@@ -51,13 +51,11 @@
 <script>
     import FilesStore from '../store/files.store';
     export default {
-        data () {
-            return {
-                files: {},
-                boardActive: -1,
-                loader: true,
-            }
-        },
+        data: () => ({
+            files: {},
+            boardActive: -1,
+            loader: true,
+        }),
         computed: {
             togleBar: function () {
                 return this.$root.drawBar;
