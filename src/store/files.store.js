@@ -8,23 +8,44 @@ export default new Vuex.Store({
     state: {
         // Files
         data: {},
+
+        // Boards without files
+        boards: {},
     },
     mutations: {
         save (state, files) {
             state.data = files;
+        },
+        saveWithoutFiles (state, boards) {
+            state.boards = boards;
         }
     },
     actions: {
         async getFiles ({ commit }) {
             if (!this.state.data.vendors) {
-                const res = await axios.get(API.host + API.route.getFiles);
+                const res = await axios.get(API.host + API.routes.getFiles);
+
+                // Generate only boards, without files
+                const boards = Object.entries(res.data.vendors)
+                    .map(board => {
+                        return {
+                            vendor: board[0],
+                            boards: board[1].map(b => { return { name: b.name, description: b.description } })
+                        }
+                    });
+
                 commit('save', res.data);
+                commit('saveWithoutFiles', boards);
+
             }
         }
     },
     getters: {
         getAll: (state) => {
             return state.data;
+        },
+        getBoards: (state) => {
+            return state.boards;
         }
     }
 })

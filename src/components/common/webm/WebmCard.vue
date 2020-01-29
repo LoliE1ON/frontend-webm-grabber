@@ -6,15 +6,17 @@
 
         <div class="text-center">
             <v-overlay :value="overlay">
-                <div>
-                    <v-btn icon @click="togglePlayerOverlay">
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                </div>
                 <div class="fake-playervideo-container">
-                    <video autoplay="autoplay" class="video-player" controls>
-                        <source :src="webm.Path">
-                    </video>
+                    <div class="video">
+                        <div>
+                            <v-btn icon @click="togglePlayerOverlay">
+                                <v-icon>mdi-close</v-icon>
+                            </v-btn>
+                        </div>
+                        <video autoplay="autoplay" class="video-player" controls>
+                            <source :src="webm.Path">
+                        </video>
+                    </div>
                 </div>
             </v-overlay>
         </div>
@@ -47,13 +49,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100wv;
-        height: 100wh;
+        width: 100vw;
+        height: 100vh;
     }
-
-    .fake-playervideo-container > video {
-        width: 90%;
-        height: 90%;
+    .video-player {
+        height: 100%;
+    }
+    .fake-playervideo-container > .video {
+        width: 100%;
+        height: 70%;
         text-align: center;
     }
 

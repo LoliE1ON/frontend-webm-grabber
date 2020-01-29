@@ -1,6 +1,6 @@
-export const API = {
+export default {
     host: 'http://localhost:3500',
-    route: {
+    routes: {
         getFiles: '/files/getAll'
     }
 }
