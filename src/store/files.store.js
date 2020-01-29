@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
+import API from '../config/api';
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
     state: {
         // Files
@@ -17,7 +17,7 @@ export default new Vuex.Store({
     actions: {
         async getFiles ({ commit }) {
             if (!this.state.data.vendors) {
-                const res = await axios.get('http://localhost:3500/files/getAll');
+                const res = await axios.get(API.host + API.route.getFiles);
                 commit('save', res.data);
             }
         }
