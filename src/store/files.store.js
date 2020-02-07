@@ -30,7 +30,13 @@ export default new Vuex.Store({
                     .map(board => {
                         return {
                             vendor: board[0],
-                            boards: board[1].map(b => { return { name: b.name, description: b.description } })
+                            boards: board[1].map(b => {
+                                return {
+                                    name: b.name,
+                                    description: b.description,
+                                    total: b.threads.length && b.threads.reduce((total, thread) => total+thread.files.length, 0)
+                                }
+                            })
                         }
                     });
 

@@ -4,7 +4,7 @@
 
         <v-app-bar app color="red" dark>
             <v-app-bar-nav-icon @click="togleBar" />
-            <v-toolbar-title>Application</v-toolbar-title>
+            <v-toolbar-title>Webm videos</v-toolbar-title>
         </v-app-bar>
     </div>
 </template>

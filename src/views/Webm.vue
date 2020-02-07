@@ -9,10 +9,13 @@
         </v-overlay>
 
         <v-row no-gutters>
-            <v-col cols="12" sm="3" v-for="(webm, iWebm) in getFiles" :key="iWebm">
-                <WebmCard :webm="webm"/>
-            </v-col>
+
+                <v-col cols="12" sm="3" v-for="(webm, iWebm) in getFiles" :key="iWebm">
+                    <WebmCard :webm="webm"/>
+                </v-col>
+
         </v-row>
+
     </v-container>
 </template>
 
@@ -37,8 +40,7 @@
                 let newFiles = [];
                 if(!this.files[this.$route.params.id]) return newFiles;
 
-                newFiles = this.files[this.$route.params.id].filter(b=> b.name == this.$route.params.boardId).map(b => b.Threads).flat().map(t => t.files).flat();
-                console.log(newFiles)
+                newFiles = this.files[this.$route.params.id].filter(b=> b.name == this.$route.params.boardId).map(b => b.threads).flat().map(t => t.files).flat();
                 this.loader = false;
                 return newFiles;
             }

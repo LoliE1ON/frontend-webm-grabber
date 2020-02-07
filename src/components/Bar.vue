@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer v-model="togleBar" app>
+    <v-navigation-drawer v-model="toggleBar" app>
 
         <v-list-item>
             <v-list-item-content>
@@ -25,20 +25,20 @@
 
                 <template v-slot:activator>
                     <v-list-item-icon>
-                        <v-icon color="red">mdi-home</v-icon>
+                        <v-icon color="red">mdi-video</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>{{ vendor.vendor }}</v-list-item-title>
                     </v-list-item-content>
                 </template>
                 <v-list-item-group v-model="boardActive">
-                    <v-list-item :to="'/webm/' + vendor.vendor + '/' + board.name" v-for="(board, boardI) in vendor.boards" :key="boardI" link>
+                    <v-list-item v-if="board.total" :to="'/webm/' + vendor.vendor + '/' + board.name" v-for="(board, boardI) in vendor.boards" :key="boardI" link>
                         <v-list-item-icon>
                             <v-icon>mdi-folder</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>
                             {{ board.description }}
-                            <v-badge color="red" offset-x="-5" :content="board.name"></v-badge>
+                            <v-badge color="red" offset-x="-5" :content="board.total"></v-badge>
                         </v-list-item-title>
                     </v-list-item>
                 </v-list-item-group>
@@ -58,8 +58,9 @@
             loader: true,
         }),
         computed: {
-            togleBar: function () {
-                return this.$root.drawBar;
+            toggleBar: {
+                get () { return this.$root.drawBar },
+                set () { console.log('Toggle bar') }
             },
         },
         mounted() {
@@ -74,5 +75,21 @@
 <style scoped>
     .ml {
         margin-left: 5px;
+    }
+</style>
+
+<style>
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #fff;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #ebebeb;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #dadada;
     }
 </style>

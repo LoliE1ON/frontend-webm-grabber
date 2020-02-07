@@ -1,9 +1,8 @@
 <template>
     <div>
         <v-card class="pa-2" outlined tile @click="togglePlayerOverlay">
-            <v-img :src="webm.Preview" height="200px"></v-img>
+            <v-img :src="webm.preview" height="200px"></v-img>
         </v-card>
-
         <div class="text-center">
             <v-overlay :value="overlay">
                 <div class="fake-playervideo-container">
@@ -14,13 +13,12 @@
                             </v-btn>
                         </div>
                         <video autoplay="autoplay" class="video-player" controls>
-                            <source :src="webm.Path">
+                            <source :src="webm.path">
                         </video>
                     </div>
                 </div>
             </v-overlay>
         </div>
-
     </div>
 </template>
 
@@ -30,7 +28,8 @@
             webm: Object
         },
         data: () => ({
-            overlay: false
+            overlay: false,
+            isActive: false,
         }),
         methods: {
             togglePlayerOverlay: function () {
