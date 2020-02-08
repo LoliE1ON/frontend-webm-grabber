@@ -32,8 +32,8 @@
         computed: {
             breadcrumbs: function () {
                 return [
-                    { text: this.$route.params.id, disabled: false, href: '/' },
-                    { text: this.$route.params.boardId, disabled: true, href: '' }
+                    { text: this.$route.params.id, disabled: false, link: false, to: '/' },
+                    { text: this.$route.params.boardId, disabled: true, link: false, }
                 ]
             },
             getFiles: function () {

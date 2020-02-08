@@ -1,16 +1,14 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <v-row align="center" justify="center">
-
-      Home
-
-    </v-row>
+  <v-container class="lighten-5">
+      <Search/>
   </v-container>
 </template>
 
 <script>
+  import Search from "../components/Search";
   export default {
     name: 'home',
+    components: {Search},
     data: () => ({
       ///
     }),

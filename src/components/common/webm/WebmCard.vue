@@ -1,7 +1,8 @@
 <template>
     <div>
-        <v-card class="pa-2" outlined tile @click="togglePlayerOverlay">
-            <v-img :src="webm.preview" height="200px"></v-img>
+        <v-card class="pa-0 ma-4 text-no-wrap">
+            <div class="pa-1 overline text-no-wrap">{{ webm.name }}</div>
+            <v-img @click="togglePlayerOverlay" :src="webm.preview" class="cpointer" :height="height"></v-img>
         </v-card>
         <div class="text-center">
             <v-overlay :value="overlay">
@@ -25,7 +26,11 @@
 <script>
     export default {
         props: {
-            webm: Object
+            webm: Object,
+            height: {
+                type: String,
+                default: '200px'
+            },
         },
         data: () => ({
             overlay: false,
@@ -42,7 +47,9 @@
 </script>
 
 <style scoped>
-
+    .cpointer {
+        cursor: pointer;
+    }
     .fake-playervideo-container {
         background-color: #000;
         display: flex;

@@ -12,7 +12,8 @@
                 default: () =>  ([{
                     text: 'Home',
                     disabled: false,
-                    href: '/',
+                    link: false,
+                    to: '/',
                 }])
             },
         },

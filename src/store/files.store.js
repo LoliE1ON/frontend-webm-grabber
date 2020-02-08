@@ -11,6 +11,9 @@ export default new Vuex.Store({
 
         // Boards without files
         boards: {},
+
+        // Descriptions files for search
+        descriptions: {},
     },
     mutations: {
         save (state, files) {
@@ -18,6 +21,9 @@ export default new Vuex.Store({
         },
         saveWithoutFiles (state, boards) {
             state.boards = boards;
+        },
+        saveDescriptionsFiles (state, descriptions) {
+            state.descriptions = descriptions;
         }
     },
     actions: {
@@ -40,8 +46,12 @@ export default new Vuex.Store({
                         }
                     });
 
+                const descriptions = Object.entries(res.data.vendors).
+                map(v => v[1].reduce((acc, b) => [...acc, b.threads.map(t => t.files.map(f => f)).flat()], []).flat()).flat();
+
                 commit('save', res.data);
                 commit('saveWithoutFiles', boards);
+                commit('saveDescriptionsFiles', descriptions);
 
             }
         }
@@ -52,6 +62,9 @@ export default new Vuex.Store({
         },
         getBoards: (state) => {
             return state.boards;
+        },
+        getDescriptionsFiles: (state) => {
+            return state.descriptions;
         }
     }
 })
