@@ -13,7 +13,7 @@
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </div>
-                        <video autoplay="autoplay" class="video-player" controls>
+                        <video autoplay="autoplay" v-on:loadedmetadata="loadVideo" v-on:volumechange="changeVideoVolume" class="video-player" ref="player" controls>
                             <source :src="webm.path">
                         </video>
                     </div>
@@ -37,11 +37,18 @@
             isActive: false,
         }),
         methods: {
+            loadVideo: function (e) {
+                e.target.volume = this.$root.volume;
+            },
+            changeVideoVolume: function (e) {
+                this.$root.volume = +e.target.volume;
+                localStorage.volume = +e.target.volume;
+                console.log(localStorage.volume)
+            },
             togglePlayerOverlay: function () {
                 this.overlay = !this.overlay;
-                // Toggle bar
                 this.$root.drawBar = !this.$root.drawBar;
-            }
+            },
         }
     }
 </script>

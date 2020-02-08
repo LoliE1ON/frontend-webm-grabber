@@ -2,18 +2,23 @@
 
     <v-container class="lighten-5">
 
-        <Breadcrumbs :items="breadcrumbs"/>
+        <v-row no-gutters>
+            <v-col cols="12" sm="9">
+                <Breadcrumbs :items="breadcrumbs"/>
+            </v-col>
+            <v-col cols="12" sm="3">
+                <Volume/>
+            </v-col>
+        </v-row>
 
         <v-overlay :value="loader">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
 
         <v-row no-gutters>
-
-                <v-col cols="12" sm="3" v-for="(webm, iWebm) in getFiles" :key="iWebm">
-                    <WebmCard :webm="webm"/>
-                </v-col>
-
+            <v-col cols="12" sm="3" v-for="(webm, iWebm) in getFiles" :key="iWebm">
+                <WebmCard :webm="webm"/>
+            </v-col>
         </v-row>
 
     </v-container>
@@ -23,6 +28,7 @@
     import FilesStore from "../store/files.store";
     import Breadcrumbs from "../components/common/Breadcrumbs";
     import WebmCard from "../components/common/webm/WebmCard";
+    import Volume from "../components/common/player/Volume";
 
     export default {
         data: () => ({
@@ -51,6 +57,7 @@
             })
         },
         components: {
+            Volume,
             WebmCard,
             Breadcrumbs
         },

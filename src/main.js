@@ -14,6 +14,7 @@ new Vue({
   data: {
     // Toggle bar
     drawBar: true,
+    volume: localStorage.volume || 0.5,
   },
   render: h => h(App)
 }).$mount('#app')
