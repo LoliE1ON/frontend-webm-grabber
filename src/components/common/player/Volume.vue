@@ -1,6 +1,6 @@
 <template>
     <div class="pl-6 pr-6 mt-4">
-        <v-slider v-on:change="changeVolume" label="Player Volume" min="0" max="1" :value="getVolume" step="any"></v-slider>
+        <v-slider v-on:change="changeVolume" label="Player Volume" min="0" max="1" color="red" :value="getVolume" step="any"></v-slider>
     </div>
 </template>
 

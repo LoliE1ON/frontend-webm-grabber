@@ -21,6 +21,10 @@
             </v-col>
         </v-row>
 
+        <v-card @click="lazyLoad" v-show="totalVideos > currentShowVideos" class="pa-5 ma-4 text-no-wrap text-center text-uppercase">
+            <v-icon color="red">mdi-progress-download</v-icon> Load more
+        </v-card>
+
     </v-container>
 </template>
 
@@ -34,7 +38,14 @@
         data: () => ({
             files: {},
             loader: true,
+            totalVideos: 0,
+            currentShowVideos: 23,
         }),
+        methods: {
+            lazyLoad() {
+                this.currentShowVideos = this.currentShowVideos + 24;
+            }
+        },
         computed: {
             breadcrumbs: function () {
                 return [
@@ -46,7 +57,11 @@
                 let newFiles = [];
                 if(!this.files[this.$route.params.id]) return newFiles;
 
-                newFiles = this.files[this.$route.params.id].filter(b=> b.name == this.$route.params.boardId).map(b => b.threads).flat().map(t => t.files).flat();
+                newFiles = this.files[this.$route.params.id].filter(b=> b.name == this.$route.params.boardId).map(b => b.threads).flat().map(t => t.files).flat().filter((video, key, all) => {
+                    this.totalVideos = all.length;
+                    return key <= this.currentShowVideos
+                });
+
                 this.loader = false;
                 return newFiles;
             }
