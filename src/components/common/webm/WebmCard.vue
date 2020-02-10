@@ -1,9 +1,11 @@
 <template>
     <div>
-        <v-card class="pa-0 ma-4 text-no-wrap">
-            <div class="pa-1 overline text-no-wrap">{{ webm.name }}</div>
-            <v-img @click="togglePlayerOverlay" :src="webm.preview" class="cpointer" :height="height"></v-img>
-        </v-card>
+        <v-hover v-slot:default="{ hover }" close-delay="200">
+            <v-card  :elevation="hover ? 16 : 2" class="pa-0 ma-4 text-no-wrap">
+                <div class="pa-1 overline text-no-wrap" ref="title">{{ webm.name }}</div>
+                <v-img @click="togglePlayerOverlay" :src="webm.preview" class="cpointer" :height="height"></v-img>
+            </v-card>
+        </v-hover>
         <div class="text-center">
             <v-overlay :value="overlay">
                 <div class="fake-playervideo-container">
@@ -46,6 +48,9 @@
                 console.log(localStorage.volume)
             },
             togglePlayerOverlay: function () {
+                if(this.overlay) {
+                    this.$refs.title.classList.add('red', 'lighten-1');
+                }
                 this.overlay = !this.overlay;
                 this.$root.drawBar = !this.$root.drawBar;
             },

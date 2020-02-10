@@ -12,8 +12,9 @@
                             indeterminate
                             v-show="loader"
                     ></v-progress-circular>
-
-                    Boards
+                    <router-link :to="{ name: 'home'}" class="board-link">
+                        Boards
+                    </router-link>
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
@@ -91,5 +92,9 @@
     }
     ::-webkit-scrollbar-thumb:hover {
         background: #dadada;
+    }
+    .board-link {
+        text-decoration: none;
+        color: #212121;
     }
 </style>
