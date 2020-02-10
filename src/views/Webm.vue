@@ -71,6 +71,11 @@
                 this.files = FilesStore.getters.getAll.vendors;
             })
         },
+        beforeRouteUpdate (to, from, next) {
+            this.currentShowVideos = 23;
+            window.scrollTo(0,0);
+            next();
+        },
         components: {
             Volume,
             WebmCard,
