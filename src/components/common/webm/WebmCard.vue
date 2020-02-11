@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-hover v-slot:default="{ hover }" close-delay="200">
+        <v-hover v-slot:default="{ hover }" close-delay="50">
             <v-card  :elevation="hover ? 16 : 2" class="pa-0 ma-4 text-no-wrap">
                 <div v-bind:class="{ red: isViewed() }" class="pa-1 overline text-no-wrap" ref="title">{{ webm.name }}</div>
                 <v-img @click="togglePlayerOverlay" :src="webm.preview" class="cpointer" :height="height"></v-img>
@@ -43,13 +43,10 @@
             isViewed() {
               return !!this.viewedList.filter(video => video.name === this.webm.name).length;
             },
-            loadVideo: function (e) {
-                e.target.volume = this.$root.volume;
-            },
+            loadVideo: (e) => e.target.volume = this.$root.volume,
             changeVideoVolume: function (e) {
                 this.$root.volume = +e.target.volume;
                 localStorage.volume = +e.target.volume;
-                console.log(localStorage.volume)
             },
             togglePlayerOverlay: function () {
                 // Mark video
@@ -63,6 +60,7 @@
             },
         },
         mounted() {
+            // Loading viewed videos of local storage
             if (localStorage.viewedVideos) this.viewedList = JSON.parse(localStorage.viewedVideos);
         }
     }
