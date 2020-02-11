@@ -2,7 +2,7 @@
     <div>
         <v-hover v-slot:default="{ hover }" close-delay="200">
             <v-card  :elevation="hover ? 16 : 2" class="pa-0 ma-4 text-no-wrap">
-                <div class="pa-1 overline text-no-wrap" ref="title">{{ webm.name }}</div>
+                <div v-bind:class="{ red: isWatch }" class="pa-1 overline text-no-wrap" ref="title">{{ webm.name }}</div>
                 <v-img @click="togglePlayerOverlay" :src="webm.preview" class="cpointer" :height="height"></v-img>
             </v-card>
         </v-hover>
@@ -15,7 +15,7 @@
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </div>
-                        <video autoplay="autoplay" v-on:loadedmetadata="loadVideo" v-on:volumechange="changeVideoVolume" class="video-player" ref="player" controls>
+                        <video autoplay="autoplay" v-on:loadedmetadata="loadVideo" v-on:volumechange="changeVideoVolume" class="video-player" controls>
                             <source :src="webm.path">
                         </video>
                     </div>
@@ -37,6 +37,7 @@
         data: () => ({
             overlay: false,
             isActive: false,
+            isWatch: false,
         }),
         methods: {
             loadVideo: function (e) {
@@ -48,12 +49,19 @@
                 console.log(localStorage.volume)
             },
             togglePlayerOverlay: function () {
-                if(this.overlay) {
-                    this.$refs.title.classList.add('red', 'lighten-1');
+                if(!this.overlay) {
+                    // Mark video
+                    //this.$refs.title.classList.add('red', 'lighten-1');
+                    this.isWatch = true;
                 }
                 this.overlay = !this.overlay;
                 this.$root.drawBar = !this.$root.drawBar;
             },
+        },
+        watch: {
+            '$route'() {
+              this.isWatch = false;
+            }
         }
     }
 </script>

@@ -67,6 +67,7 @@
             }
         },
         mounted() {
+            //this.$forceUpdate();
             FilesStore.dispatch('getFiles').then(() => {
                 this.files = FilesStore.getters.getAll.vendors;
             })
