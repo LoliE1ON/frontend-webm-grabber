@@ -2,7 +2,7 @@
     <div>
         <v-hover v-slot:default="{ hover }" close-delay="200">
             <v-card  :elevation="hover ? 16 : 2" class="pa-0 ma-4 text-no-wrap">
-                <div v-bind:class="{ red: isWatch() }" class="pa-1 overline text-no-wrap" ref="title">{{ webm.name }}</div>
+                <div v-bind:class="{ red: isViewed() }" class="pa-1 overline text-no-wrap" ref="title">{{ webm.name }}</div>
                 <v-img @click="togglePlayerOverlay" :src="webm.preview" class="cpointer" :height="height"></v-img>
             </v-card>
         </v-hover>
@@ -37,11 +37,11 @@
         data: () => ({
             overlay: false,
             isActive: false,
-            watchList: [],
+            viewedList: [],
         }),
         methods: {
-            isWatch() {
-              return !!this.watchList.filter(video => video.name === this.webm.name).length;
+            isViewed() {
+              return !!this.viewedList.filter(video => video.name === this.webm.name).length;
             },
             loadVideo: function (e) {
                 e.target.volume = this.$root.volume;
@@ -54,8 +54,8 @@
             togglePlayerOverlay: function () {
                 // Mark video
                 if(!this.overlay) {
-                    this.watchList.push({name: this.webm.name});
-                    localStorage.watches = JSON.stringify(this.watchList);
+                    this.viewedList.push({name: this.webm.name});
+                    localStorage.viewedVideos = JSON.stringify(this.viewedList);
                 }
                 // Toggle player overlay and sidebar
                 this.overlay = !this.overlay;
@@ -63,7 +63,7 @@
             },
         },
         mounted() {
-            this.watchList = JSON.parse(localStorage.watches);
+            if (localStorage.viewedVideos) this.viewedList = JSON.parse(localStorage.viewedVideos);
         }
     }
 </script>
