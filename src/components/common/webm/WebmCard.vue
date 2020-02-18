@@ -41,7 +41,7 @@
         }),
         methods: {
             isViewed() {
-              return !!this.viewedList.filter(video => video.name === this.webm.name).length;
+              return !!this.viewedList.filter(video => video.path === this.webm.path).length;
             },
             loadVideo(e) {
                 e.target.volume = this.$root.volume;
@@ -53,7 +53,7 @@
             togglePlayerOverlay: function () {
                 // Mark video
                 if(!this.overlay) {
-                    this.viewedList.push({name: this.webm.name});
+                    this.viewedList.push({path: this.webm.path});
                     localStorage.viewedVideos = JSON.stringify(this.viewedList);
                 }
                 // Toggle player overlay and sidebar
