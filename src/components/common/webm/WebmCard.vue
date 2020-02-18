@@ -43,7 +43,9 @@
             isViewed() {
               return !!this.viewedList.filter(video => video.name === this.webm.name).length;
             },
-            loadVideo: (e) => e.target.volume = this.$root.volume,
+            loadVideo(e) {
+                e.target.volume = this.$root.volume;
+            },
             changeVideoVolume: function (e) {
                 this.$root.volume = +e.target.volume;
                 localStorage.volume = +e.target.volume;
